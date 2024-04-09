@@ -4,73 +4,41 @@
 
 using namespace std;
 
- // Definition for singly-linked list.
-  struct ListNode {
-      int val;
-      ListNode *next;
-      ListNode() : val(0), next(nullptr) {};
-      ListNode(int x) : val(x), next(nullptr) {};
-      ListNode(int x, ListNode* next) : val(x), next(next) {};
-  };
- 
-  class Solution {
-  public:
-      ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-          string num1 = "";
-          string num2 = "";
-          ListNode* ld = new ListNode(0);
-
-
-          while (l1->next && l2->next) {
-              ListNode* tail = new ListNode(0);
-              ld->val += (l1->val + l2->val) % 10;
-              tail->val += (l1->val + l2->val) / 10;
-              ld->next = tail;
-              ld = ld->next;
-              l1 = l1->next;
-              l2 = l2->next;
-          }
-          while (l1->next) {
-              ListNode* tail = new ListNode(l1->val);
-              ld->next = tail;
-          }
-          while (l2->next) {
-              ListNode* tail = new ListNode(l2->val);
-              ld->next = tail;
-          }
-          return ld;
-      }
-  };
-  ListNode* Testt() {
-      ListNode* head2 = new ListNode(0);
-      return head2;
-  }
+//Задача первая, решение из сортировки кучей
   vector<int> mergerVectros(vector<int>& vector1, vector<int>& vector2) {
       vector<int> result;
-      int i = 0, j = 0;
-      while (i < vector1.size() && j < vector2.size()) {
-          if (vector1[i] < vector2[j]) {
+      int i = vector1.size() - 1, j = vector2.size() - 1;
+      while (i > 0 && j > 0) {
+          if (vector1[i] > vector2[j]) {
               result.push_back(vector1[i]);
-              i++;
+              i--;
           }
           else {
               result.push_back(vector2[j]);
-              j++;
+              j--;
           }
       }
-      while (i < vector1.size()) {
+      while (i > 0) {
           result.push_back(vector1[i]);
-          i++;
+          i--;
       }
-      while( j < vector2.size()) {
+      while( j > 0) {
           result.push_back(vector2[j]);
-          j++;
+          j--;
       }
       return result;
+  }
+  //Задача 2, условие написано не лучшим образом, нет примеров, ограничений по входным данным.Надеюсь задачу понял правильно)
+  int bengalFire(int c1, int b1) {
+      if (b1 == 0)
+          return c1 * 2;
+      return (c1 + c1 / b1) * 2;
+
   }
   int main() {
       vector<int> a = { 1, 2, 3, 4, 5, 6, 7 }, b = { 1, 2, 3, 4, 5, 6, 7 };
       for (int i : mergerVectros(a, b)) {
           cout << i << " ";
       }
+      cout << endl << " " << bengalFire(0, 0);
   }
